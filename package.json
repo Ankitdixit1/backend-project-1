@@ -1,0 +1,11 @@
+{
+  "name": "backend-project-1",
+  "version": "1.0.0",
+  "description": " a backend for e-commerce",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ankit",
+  "license": "ISC"
+}
