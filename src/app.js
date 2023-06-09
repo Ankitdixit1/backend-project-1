@@ -1,4 +1,5 @@
 import express from "express";
-import app from "./src/app.js";
 
-(()=>{})()
+const app = express()
+
+export default app;  
