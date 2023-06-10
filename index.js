@@ -9,7 +9,7 @@ import config from "./src/config/index.js";
 
         app.on('error',(error)=>{
             console.log("error:",error);
-            throw error
+            throw error 
         })
         const onlistening = ()=>{
             console.log(`listening on port ${config.PORT}`);
