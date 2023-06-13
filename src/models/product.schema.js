@@ -33,8 +33,8 @@ const   productSchema = new mongoose.Schema({
         default:0
     },
     CollectionID:{
-
+        ref: "Collection"
     }
 },{timestanps: true})
 
-export default mongoose.model("product",productSchema)
+export default mongoose.model("Product",productSchema)
