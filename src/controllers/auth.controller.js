@@ -7,6 +7,12 @@ export const cookieOptions = {
     expires : new Date (Data.now()+3*24*60*60*1000),
     httpOnly: true
 }
+/*******************************
+*@SIGNUP
+*@route http://localhost:5000/api/auth/signup
+*@description User signup controller for creating new user
+*@returns user object
+*****************************/
 export const signup = asynchandler(async(req,res) => {
     //get data from user 
     const {name,email,password} = req.body
@@ -39,4 +45,44 @@ export const signup = asynchandler(async(req,res) => {
         token,
         user,    
      })
+})
+
+export const login = asynchandler(async(req,res)=>{
+    const {email,passward} = req.body
+
+    //validation
+    if(!email || !passward){
+        throw new Customerror("please fill all the details",400)
+    }
+    const user = User.findOne({email}).select("+passward")
+    if(!user){
+        throw new Customerror("invalidation",400)
+    }
+
+    const ispasswordmatched = await user.comparePassword(passward)
+    if(ispasswordmatched){
+        const token = user.getJWTtoken()
+        user.passward = undefined
+        res.cookie("token",token,cookieOptions)
+        return res.status(200).json({
+            success:true,
+            token,
+            user
+        })
+    }
+
+    throw new Customerror("password is correct",400)
+})
+
+export const logout = asynchandler(async(req,res) => {
+    res.cookie("token",null,{
+        expires:new Date(Date.now()),
+        httpOnly:true
+    })
+    res.status(200).json(
+        {
+            success:true,
+            message:'logged out'
+        }
+    )
 })
